@@ -11,13 +11,13 @@ angular.module('lunchletterSignupApp')
         "entityId" : $scope.user.email
       }
 
-      var ACCESS_KEY = 123;
+      var ACCESS_KEY = 'I6lD68FVpqWjRv6wwINie5oRkazg207PtBcgJuJZLWwyUBSpjHzWZ3kq0ar1eqpc';
 
-      var request = $http.post("http://localhost:9000?accessKey="+ACCESS_KEY, dataObj)
-        .error(function(data, status, headers, config) {
+      var request = $http.get("http://46.101.237.209:7070/events.json?accessKey="+ACCESS_KEY, dataObj);
+        request.error(function(data, status, headers, config) {
           $scope.requestMessage = "error: " + status.toString() +" "+ data;
-        })
-        .success(function(data, status, headers, config) {
+        });
+        request.success(function(data, status, headers, config) {
           $scope.requestMessage = "success: " + status.toString() +" "+ data;
         });
     }

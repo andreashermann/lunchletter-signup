@@ -7,10 +7,11 @@
 <body>
 
 <div ng-controller="SignupCtrl" ng-init="user={email:'MaxMuster@gmx.ch'}">
-  <form>
+  <form class="signup">
     Email: <input type="email" ng-model="user.email"><br>
     <button ng-click="submit()">Submit</button><br>
   </form>
+
   <b>User:</b> {{user}}
   <p>Message: {{requestMessage}}</p>
 </div>

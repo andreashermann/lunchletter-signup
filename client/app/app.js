@@ -4,12 +4,14 @@ angular.module('lunchletterSignupApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ui.router',
+  'ngRoute',
   'ui.bootstrap'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-    $urlRouterProvider
-      .otherwise('/');
+  .config(function ($routeProvider, $locationProvider) {
+    $routeProvider
+      .otherwise({
+        redirectTo: '/'
+      });
 
     $locationProvider.html5Mode(true);
   });
