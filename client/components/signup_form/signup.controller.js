@@ -6,18 +6,27 @@ angular.module('lunchletterSignupApp')
       $scope.user.location = $location;
 
       var dataObj = {
-        "event" : "$set",
+        "event" : "add_user",
         "entityType" : "user",
         "entityId" : $scope.user.email
       }
 
-      var ACCESS_KEY = 'I6lD68FVpqWjRv6wwINie5oRkazg207PtBcgJuJZLWwyUBSpjHzWZ3kq0ar1eqpc';
+      var ACCESS_KEY = '9cbltUkuf5jJzhuT4kHimRhGeqzKNIhP5Z1nhxaH6az8XZWioUqd8bUv4nzM2EQD';
 
-      var request = $http.get("http://46.101.237.209:7070/events.json?accessKey="+ACCESS_KEY, dataObj);
-        request.error(function(data, status, headers, config) {
+      var req = {
+            method: 'POST',
+            url: '/be/events.json?accessKey='+ACCESS_KEY,
+            headers: {
+                  'Content-Type': 'application/json'
+            },
+            data: dataObj
+      };
+
+      var request = $http(req)
+	.error(function(data, status, headers, config) {
           $scope.requestMessage = "error: " + status.toString() +" "+ data;
-        });
-        request.success(function(data, status, headers, config) {
+        })
+	.success(function(data, status, headers, config) {
           $scope.requestMessage = "success: " + status.toString() +" "+ data;
         });
     }
