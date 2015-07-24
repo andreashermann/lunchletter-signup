@@ -2624,6 +2624,7 @@
 		text-align: center;
 		text-decoration: none;
 		white-space: nowrap;
+		outline: medium none;
 	}
 
 		input[type="submit"]:hover,
