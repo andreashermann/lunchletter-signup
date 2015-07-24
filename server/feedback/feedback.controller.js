@@ -34,7 +34,11 @@ exports.index = function(req, res) {
 	},
 	body: requestData },
         function(err, res2, body) {
-		res.json(body);
+		if(_.isEmpty(err)){
+			res.redirect("/rating_success.html");
+		} else {
+			res.status(404).send("Not found");
+		}
 	}
   );
 };
