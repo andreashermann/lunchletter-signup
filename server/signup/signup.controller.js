@@ -17,14 +17,9 @@ exports.index = function(req, res) {
   var accessKey = process.env['ENGINE_ACCESS_KEY'];
   var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey;
   var requestData = {
-    event : "rate",
+    event : "add_user",
     entityType : "user",
     entityId : req.query.userid,
-    targetEntityType: "restaurant",
-    targetEntityId : req.query.restaurantid,
-    properties : {
-      rating: req.query.rating
-    }
   };
   var response = request({ url: url, 
 	method: "POST",

@@ -5,24 +5,7 @@ angular.module('lunchletterSignupApp')
     $scope.submit = function() {
       $scope.user.location = $location;
 
-      var dataObj = {
-        "event" : "add_user",
-        "entityType" : "user",
-        "entityId" : $scope.user.email
-      }
-
-      var ACCESS_KEY = '9cbltUkuf5jJzhuT4kHimRhGeqzKNIhP5Z1nhxaH6az8XZWioUqd8bUv4nzM2EQD';
-
-      var req = {
-            method: 'POST',
-            url: '/be/events.json?accessKey='+ACCESS_KEY,
-            headers: {
-                  'Content-Type': 'application/json'
-            },
-            data: dataObj
-      };
-
-      var request = $http(req)
+      var request = $http.get('/signup?userid=' + $scope.user.email)
 	.error(function(data, status, headers, config) {
           $scope.requestMessage = "error: " + status.toString() +" "+ data;
         })
