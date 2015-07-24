@@ -1,4 +1,6 @@
 /**
+
+      var
  * Using Rails-like standard naming convention for endpoints.
  * GET     /things              ->  index
  * POST    /things              ->  create
@@ -20,8 +22,10 @@ exports.index = function(req, res) {
     event : "add_user",
     entityType : "user",
     entityId : req.query.userid,
+    latitude : req.query.lat,
+    longitude : req.query.long
   };
-  var response = request({ url: url, 
+  var response = request({ url: url,
 	method: "POST",
 	json: true,
 	headers: {
