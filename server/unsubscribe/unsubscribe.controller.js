@@ -1,6 +1,4 @@
 /**
-
-      var
  * Using Rails-like standard naming convention for endpoints.
  * GET     /things              ->  index
  * POST    /things              ->  create
@@ -17,29 +15,28 @@ var request = require('request');
 // Get list of things
 exports.index = function(req, res) {
   var accessKey = process.env['ENGINE_ACCESS_KEY'];
-  var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey;
+  
+  var eventId = 
+  
+  var url = "http://lunchletter.ch:7070/events/"+eventId+".json?accessKey=" + accessKey;
   var requestData = {
     event : "add_user",
     entityType : "user",
     entityId : req.query.userid
   };
   
-  if (req.query.longitude !== undefined && req.query.latitude !== undefined) {
-  	requestData.properties = {
-    	longitude: req.query.longitude,
-    	latitude: req.query.latitude
-    };
-  }
-  
   var response = request({ url: url, 
-	method: "POST",
+	method: "DELETE",
 	json: true,
 	headers: {
         	"content-type": "application/json",
 	},
-	body: requestData },
-        function(err, res2, body) {
-		res.json(body);
+  }, function(err, res2, body) {
+		if(_.isEmpty(err)){
+			res.redirect("/unsubscribe.html");
+		} else {
+			res.status(404).send("Not found");
+		}
 	}
   );
 };

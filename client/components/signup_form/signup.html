@@ -50,7 +50,7 @@
                         <span class="strong">Lunch Letter</span> | Zürich</h2>
 					<p>Each day three lunch recommendations. By Email.</p>
 
-					<form>
+					<form ng-hide="signedUp">
 						<div class="row uniform 50%" style="width: 600px; margin-left: auto; margin-right: auto">
 							<div class="8u 8u(mobilep)">
 								<input type="email" style="color:black;" name="email" id="email" placeholder="Email Address" ng-model="user.email"/>
@@ -66,12 +66,33 @@
 			<!-- Main -->
 				<section id="main" class="container">
 
-					<section class="box special">
+					<section class="box special" ng-hide="signedUp">
 						<header class="major">
 							<h2>Introducing the ultimate web app
 							<br />
 							for getting personalized restaurant recommendations.</h2>
 							<p>Are you fed up with going to same restaurant every day? <br>We'll show you which alternative lunch locations you might like <br>based on the ratings of thousands of other users.</p>
+						</header>
+                        <!--
+						<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
+                        -->
+					</section>
+					
+					<section class="box special" ng-show="signedUp">
+						<header class="major">
+							<h2>Thank you for signing up!</h2>
+							<p></p>
+							<h2>Please help us improve your personal recommendations<br> by rating these restaurants<h2>
+							<br>
+							<table>
+								<tr ng-repeat="restaurant in restaurants">
+									<td>{{restaurant.properties['name']}}</td>
+									<td><input class="input-rating" type="number" min="1" max="5" value="5"><button ng-click="rate('1656','5')">Rate</button></td>
+								</tr>
+							
+							</table>
+							
+							
 						</header>
                         <!--
 						<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
