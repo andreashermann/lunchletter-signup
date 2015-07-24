@@ -3,6 +3,8 @@
 angular.module('lunchletterSignupApp')
   .controller('SignupCtrl', function ($scope, $http, $q) {
   
+  	$scope.signedUp = false;
+  
   	//[{'properties': {'name': 'Nooba'}}];
 
     if (navigator.geolocation) {
@@ -33,11 +35,12 @@ angular.module('lunchletterSignupApp')
   		$scope.restaurants = r;
   	}); 
     
-    $scope.rate = function(restaurantid,rating) {
+    $scope.rate = function(restaurantid,rating,e) {
+    	$(e.target).parents('tr').hide();
     	var request = $http.get('/feedback?'
     		+ 'userid=' + $scope.user.email
-    		+ ',restaurantid=' + restaurantid
-    		+ ',rating=' + rating);
+    		+ '&restaurantid=' + restaurantid
+    		+ '&rating=' + rating);
 	};
 
     $scope.submit = function() {
@@ -49,14 +52,13 @@ angular.module('lunchletterSignupApp')
       	url += '&longitude=' + $scope.user.longitude;
       }
       
+      $scope.signedUp = true;
       var request = $http.get(url)
 		.error(function(data, status, headers, config) {
           $scope.requestMessage = "error: " + status.toString() +" "+ data;
         })
 		.success(function(data, status, headers, config) {
           $scope.requestMessage = "success: " + status.toString() +" "+ data;
-          $scope.signedUp = true;
-          $scope.restaurants = getRestaurants();
         });
 
     };

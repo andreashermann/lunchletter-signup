@@ -78,16 +78,25 @@
                         -->
 					</section>
 					
-					<section class="box special" ng-show="signedUp">
+					<section class="box special" ng-show="signedUp"">
 						<header class="major">
 							<h2>Thank you for signing up!</h2>
 							<p></p>
 							<h2>Please help us improve your personal recommendations<br> by rating these restaurants<h2>
 							<br>
+							
 							<table>
 								<tr ng-repeat="restaurant in restaurants">
 									<td>{{restaurant.properties['name']}}</td>
-									<td><input class="input-rating" type="number" min="1" max="5" value="5"><button ng-click="rate('1656','5')">Rate</button></td>
+									<td>
+									 <div class="rating">
+										<span ng-click="rate(restaurant.entityId,'1',$event)">☆</span>
+										<span ng-click="rate(restaurant.entityId,'2',$event)">☆</span>
+										<span ng-click="rate(restaurant.entityId,'3',$event)">☆</span>
+										<span ng-click="rate(restaurant.entityId,'4',$event)">☆</span>
+										<span ng-click="rate(restaurant.entityId,'5',$event)">☆</span>
+									</div>
+									 </td>
 								</tr>
 							
 							</table>

@@ -15,7 +15,7 @@ var request = require('request');
 // Get list of things
 exports.index = function(req, res) {
   var accessKey = process.env['ENGINE_ACCESS_KEY'];
-  var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey + "&event=add_restaurant&limit=-1";
+  var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey + "&event=add_restaurant&limit=5";
   var response = request({ url: url, 
 	method: "GET",
 	json: true,

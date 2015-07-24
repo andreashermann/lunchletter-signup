@@ -3,6 +3,36 @@
   border-style: solid;
   border-color: black;
   border-width: 1px;
-  border-radius: 5px; }
+  border-radius: 5px; 
+}
+
+.rating-star {
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+}
+
+.rating > a:hover:before,
+.rating > a:hover ~ a:before {
+  color: #FFCC00;
+  text-decoration: none;
+  border: none;
+}
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  cursor: pointer;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
+}
 
 /*# sourceMappingURL=signup.css.map */
