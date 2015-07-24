@@ -13,7 +13,6 @@ angular.module('lunchletterSignupApp')
     }
 
     $scope.submit = function() {
-
       var request = $http.get('/signup?'
         + 'userid=' + $scope.user.email
         + ',lat=' + $scope.user.lat
