@@ -5,10 +5,9 @@ var app = require('../app');
 var request = require('supertest');
 
 describe('GET /unsubscribe', function() {
-
-  it('should respond with JSON object', function(done) {
+  it('should respond with redirect', function(done) {
     request(app)
-      .get('/feedback')
+      .get('/unsubscribe')
       .expect(200)
       .end(function(err, res) {
         if (err) return done(err);
