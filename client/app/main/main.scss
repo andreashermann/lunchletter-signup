@@ -1184,10 +1184,38 @@
 
 /* Banner */
 
+	#banner.evening {
+		background-image: url("/assets/images/20141121_Zurich_LimmatNight_Web.jpg");
+		background-attachment: fixed;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	
+	#banner.noon {
+		background-image: url("/assets/images/5161076594_550ae2142f_b.jpg");
+		background-attachment: fixed;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	
+	#banner.morning {
+		background-image: url("/assets/images/5981462254_71c858c860_b.jpg");
+		background-attachment: fixed;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		
+		h2 {
+			text-shadow: 2px 2px rgba(255,255,255,0.4);
+		}
+	}
+
 	#banner {
 		background-attachment:	scroll,							fixed;
 		background-color:		#666;
-		background-image:		url('/assets/images/overlay.png'),		url("/assets/images/20141121_Zurich_LimmatNight_Web.jpg");
+		background-image:		url('/assets/images/overlay.png');
 		background-position:	top left,						center center;
 		background-repeat:		repeat,							no-repeat;
 		background-size:		auto,							cover;

@@ -3031,7 +3031,7 @@
 	#banner {
 		background-attachment: scroll,							fixed;
 		background-color: #666;
-		background-image: url("../../assets/images/overlay.png"), url("../../assets/images/20141121_Zurich_LimmatNight_Web.jpg");
+		background-image: url("../../assets/images/overlay.png"), url("");
 		background-position: top left,						center center;
 		background-repeat: repeat,							no-repeat;
 		background-size: auto,							cover;

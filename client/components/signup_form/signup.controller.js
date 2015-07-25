@@ -12,7 +12,16 @@ angular.module('lunchletterSignupApp')
       	$scope.user.longitude = position.coords.longitude;
       });
     }
-	
+    
+    var hour = new Date().getHours();
+    if (hour < 9) {
+    	$('#banner').addClass('morning');
+    } else if (hour < 18) {
+    	$('#banner').addClass('noon');
+    } else {
+    	$('#banner').addClass('evening');
+    }
+    
 	// http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array-in-javascript
 	function shuffle(o){
 		for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
