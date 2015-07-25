@@ -6,19 +6,6 @@
   border-radius: 5px; 
 }
 
-.rating-star {
-  cursor: pointer;
-  text-decoration: none;
-  border: none;
-}
-
-.rating > a:hover:before,
-.rating > a:hover ~ a:before {
-  color: #FFCC00;
-  text-decoration: none;
-  border: none;
-}
-
 .rating {
   unicode-bidi: bidi-override;
   direction: rtl;

@@ -1,11 +1,10 @@
 'use strict';
 
 angular.module('lunchletterSignupApp')
-  .controller('SignupCtrl', function ($scope, $http, $q) {
+  .controller('SignupCtrl', function ($scope, $http) {
   
   	$scope.signedUp = false;
-  
-  	//[{'properties': {'name': 'Nooba'}}];
+	$scope.restaurants = [];
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
@@ -15,31 +14,25 @@ angular.module('lunchletterSignupApp')
       $scope.user.latitude = position.coords.latitude;
       $scope.user.longitude = position.coords.longitude;
     }
-    
-    // http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array-in-javascript
-    function shuffle(o){
-		for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-		return o;
-	}
 	
-	function getRestaurants() {
-    	var defer = $q.defer();
-    	$http.get('/restaurants').success(function(data){
-    		var restaurants = shuffle(data);
-            defer.resolve(restaurants.splice(0,5));
-    	});
-    	return defer.promise;
+	function fetchRestaurants() {
+		var url = '/restaurants?';
+		if ($scope.user.latitude !== undefined) {
+			url += '&latitude=' + $scope.user.latitude;
+		}
+		if ($scope.user.longitude !== undefined) {
+			url += '&longitude=' + $scope.user.longitude;
+		}
+		$http.get(url).success(function(data){
+			$scope.restaurants = data.splice(0,10);
+		});
 	}
-	
-  	getRestaurants().then(function(r) {
-  		$scope.restaurants = r;
-  	}); 
     
-    $scope.rate = function(restaurantid,rating,e) {
-    	$(e.target).parents('tr').hide();
+    $scope.rate = function(restaurant,rating,e) {
+    	$scope.restaurants.splice($scope.restaurants.indexOf(restaurant), 1);
     	var request = $http.get('/feedback?'
     		+ 'userid=' + $scope.user.email
-    		+ '&restaurantid=' + restaurantid
+    		+ '&restaurantid=' + restaurant.eventId
     		+ '&rating=' + rating);
 	};
 
@@ -59,6 +52,7 @@ angular.module('lunchletterSignupApp')
         })
 		.success(function(data, status, headers, config) {
           $scope.requestMessage = "success: " + status.toString() +" "+ data;
+      		fetchRestaurants();
         });
 
     };
