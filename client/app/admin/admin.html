@@ -3,6 +3,7 @@
 	<thead>
 		<tr>
 			<th>Email</th>
+			<th>Position</th>
 			<th>Date</th>
 			<th>Actions</th>
 		</tr>
@@ -10,6 +11,7 @@
 	<tbody>
 	<tr ng-repeat="user in users">
 		<td>{{user.entityId}}</td>
+		<td><a href="https://www.google.ch/maps/@{{user.properties.latitude}},{{user.properties.longitude}},14z">{{user.properties.latitude | number:4}},{{user.properties.longitude | number:4}}</a></td>
 		<td>{{user.creationTime}}</td>
 		<td><a href="#" ng-click="unsubscribeUser(user)">Unsubscribe</a></td>
 	</tr>
