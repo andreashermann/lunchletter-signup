@@ -15,6 +15,7 @@ module.exports = function(app) {
   app.use('/signup', require('./signup'));
   app.use('/restaurants', require('./restaurants'));
   app.use('/users', require('./users'));
+  app.use('/unsubscribe', require('./unsubscribe'));
   
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
