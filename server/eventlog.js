@@ -8,9 +8,9 @@ var client = new Keen({
 module.exports = function(eventName, properties){
   	client.addEvent(eventName, properties, function(err, res) {
     	if (err) {
-        	console.log("event logger failed: " + eventName + " - " + properties);
+        	console.log("event logger failed: " + eventName, properties);
     	} else {
-    		console.log("event logged: " + eventName + " - " + properties);
+    		console.log("event logged: " + eventName, properties);
     	}
 	});
 }

@@ -15,6 +15,12 @@ angular.module('lunchletterSignupApp')
       $scope.user.longitude = position.coords.longitude;
     }
 	
+	// http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array-in-javascript
+	function shuffle(o){
+		for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+		return o;
+	}
+	
 	function fetchRestaurants() {
 		var url = '/restaurants?';
 		if ($scope.user.latitude !== undefined) {
@@ -23,8 +29,9 @@ angular.module('lunchletterSignupApp')
 		if ($scope.user.longitude !== undefined) {
 			url += '&longitude=' + $scope.user.longitude;
 		}
-		$http.get(url).success(function(data){
-			$scope.restaurants = data.splice(0,10);
+		$http.get(url).success(function(restaurants){
+    		shuffle(restaurants);
+			$scope.restaurants = restaurants.splice(0,20);
 		});
 	}
     

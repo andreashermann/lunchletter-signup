@@ -12,12 +12,6 @@
 var _ = require('lodash');
 var request = require('request');
 
-// http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array-in-javascript
-function shuffle(o){
-	for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-	return o;
-}
-
 // code from: http://www.giangrandi.ch/soft/swissgrid/swissgrid.shtml
 function ch1903_wgs84(east, north, hgt)
 {
@@ -118,8 +112,6 @@ exports.index = function(req, res) {
     		restaurants.sort(function(a,b) {
     			return a.properties.distance - b.properties.distance;
     		});
-    	} else {
-    		shuffle(restaurants);
     	}
     	
     	// return at most 20 restaurants
