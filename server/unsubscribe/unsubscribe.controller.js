@@ -5,12 +5,24 @@ var request = require('request');
 var accessKey = process.env.ENGINE_ACCESS_KEY;
 var eventlog = require('../eventlog.js');
 
+function findUser(userId, callback) {
+  var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey + "&event=add_user&limit=1&entityId=" + userId;
+  var response = request({ url: url, 
+	method: "GET",
+	json: true,
+	headers: {
+			"content-type": "application/json",
+	},
+  }, function(err, res, users) {
+  	if(_.isEmpty(err)){
+  		callback(users[0]);
+  	} else {
+  		callback(err, null);
+  	}
+  });
+}
+
 function deleteEvent(eventId, callback) {
-  // TODO: log event -> requires userId instead of only eventId
-  if (req.query.userId) {
-  	eventlog('rate', { 'userId': req.query.userId });
-  }
-  
   var url = "http://lunchletter.ch:7070/events/"+eventId+".json?accessKey=" + accessKey;
   var response = request({ url: url, 
 	method: "DELETE",
@@ -18,25 +30,23 @@ function deleteEvent(eventId, callback) {
 	headers: {
 			"content-type": "application/json",
 	},
-  }, 
-  function(err, res, body) {
-	if(_.isEmpty(err)){
-		res.redirect("/unsubscribe.html");
-	} else {
-		res.status(404).send("Not found");
-	}
-  });
+  }, callback);
 }
 
 // Get list of things
 exports.index = function(req, res) {
-  
-  // TODO: fetch eventId from entityId
-  // entityId : req.query.userid
-  var eventId = req.query.eventId;
-  
-  if (req.query.eventId) {
-  	deleteEvent(req.query.eventId);
+  if (req.query.userId) {
+  	eventlog('rate', { 'userId': req.query.userId });
   }
+  
+  findUser(req.query.userId, function(user) {
+	deleteEvent(user.eventId, function(err2, res2) {
+		if(_.isEmpty(err2)){
+			res.redirect("/unsubscribe.html");
+		} else {
+			res.status(500).send("unsubscribe failed.");
+		}
+	});
+  });
   
 };

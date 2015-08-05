@@ -43,6 +43,11 @@ var all = {
       }
     }
   },
+  
+  keen: {
+    projectId: "55c249e459949a551c0d4bac",
+    writeKey: process.env.KEEN_WRITE_KEY
+  }
 
 };
 

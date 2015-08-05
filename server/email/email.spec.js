@@ -12,7 +12,7 @@ describe('GET /email/pix.png', function() {
       .expect('Content-Type', /image/)
       .end(function(err, res) {
         if (err) return done(err);
-        res.body.should.be.instanceof(Byte);
+        res.body.should.be.instanceof(Object);
         done();
       });
   });
