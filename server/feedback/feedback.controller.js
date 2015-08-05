@@ -11,17 +11,22 @@
 
 var _ = require('lodash');
 var request = require('request');
+var eventlog = require('../eventlog.js');
 
 // Get list of things
 exports.index = function(req, res) {
+  if (req.query.userId) {
+  	eventlog('rate', { 'userId': req.query.userId });
+  }
+  
   var accessKey = process.env.ENGINE_ACCESS_KEY;
   var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey;
   var requestData = {
     event : "rate",
     entityType : "user",
-    entityId : req.query.userid,
+    entityId : req.query.userId,
     targetEntityType: "restaurant",
-    targetEntityId : req.query.restaurantid,
+    targetEntityId : req.query.restaurantId,
     properties : {
       rating: req.query.rating
     }

@@ -3,8 +3,14 @@
 var _ = require('lodash');
 var request = require('request');
 var accessKey = process.env.ENGINE_ACCESS_KEY;
+var eventlog = require('../eventlog.js');
 
 function deleteEvent(eventId, callback) {
+  // TODO: log event -> requires userId instead of only eventId
+  if (req.query.userId) {
+  	eventlog('rate', { 'userId': req.query.userId });
+  }
+  
   var url = "http://lunchletter.ch:7070/events/"+eventId+".json?accessKey=" + accessKey;
   var response = request({ url: url, 
 	method: "DELETE",
@@ -13,7 +19,7 @@ function deleteEvent(eventId, callback) {
 			"content-type": "application/json",
 	},
   }, 
-  function(err, res2, body) {
+  function(err, res, body) {
 	if(_.isEmpty(err)){
 		res.redirect("/unsubscribe.html");
 	} else {

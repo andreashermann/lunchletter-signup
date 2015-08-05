@@ -31,13 +31,13 @@ angular.module('lunchletterSignupApp')
     $scope.rate = function(restaurant,rating,e) {
     	$scope.restaurants.splice($scope.restaurants.indexOf(restaurant), 1);
     	var request = $http.get('/feedback?'
-    		+ 'userid=' + $scope.user.email
-    		+ '&restaurantid=' + restaurant.eventId
+    		+ 'userId=' + $scope.user.email
+    		+ '&restaurantId=' + restaurant.eventId
     		+ '&rating=' + rating);
 	};
 
     $scope.submit = function() {
-      var url = '/signup?'+ 'userid=' + $scope.user.email;
+      var url = '/signup?'+ 'userId=' + $scope.user.email;
       if ($scope.user.latitude !== undefined) {
       	url += '&latitude=' + $scope.user.latitude;
       }

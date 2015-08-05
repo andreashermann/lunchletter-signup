@@ -1,6 +1,4 @@
 /**
-
-      var
  * Using Rails-like standard naming convention for endpoints.
  * GET     /things              ->  index
  * POST    /things              ->  create
@@ -13,15 +11,18 @@
 
 var _ = require('lodash');
 var request = require('request');
+var eventlog = require('../eventlog.js');
 
 // Get list of things
 exports.index = function(req, res) {
+  eventlog('signUp', { 'userId': req.query.userId });
+
   var accessKey = process.env.ENGINE_ACCESS_KEY;
   var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey;
   var requestData = {
     event : "add_user",
     entityType : "user",
-    entityId : req.query.userid
+    entityId : req.query.userId
   };
   
   if (req.query.longitude !== undefined && req.query.latitude !== undefined) {
