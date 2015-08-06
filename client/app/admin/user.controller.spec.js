@@ -1,11 +1,11 @@
 'use strict';
 
-describe('Controller: AdminCtrl', function () {
+describe('Controller: UserCtrl', function () {
 
   // load the controller's module
   beforeEach(module('lunchletterSignupApp'));
 
-  var AdminCtrl,
+  var UserCtrl,
       scope,
       $httpBackend;
 
@@ -19,7 +19,7 @@ describe('Controller: AdminCtrl', function () {
       ]);
 
     scope = $rootScope.$new();
-    AdminCtrl = $controller('AdminCtrl', {
+    UserCtrl = $controller('UserCtrl', {
       $scope: scope
     });
   }));

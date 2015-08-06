@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lunchletterSignupApp')
-  .controller('AdminCtrl', function ($scope, $http) {
+  .controller('UserCtrl', function ($scope, $http) {
   
 	$scope.users = [];
 	

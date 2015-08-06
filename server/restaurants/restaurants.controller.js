@@ -86,7 +86,7 @@ function dist(lat1,lon1,lat2,lon2) {
 // Get list of things
 exports.index = function(req, res) {
   var accessKey = process.env.ENGINE_ACCESS_KEY;
-  var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey + "&event=add_restaurant&limit=1000";
+  var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey + "&event=add_restaurant&limit=-1";
   var response = request(
   	{ 
   		url: url, 
@@ -97,9 +97,8 @@ exports.index = function(req, res) {
 		},
 	},
     function(err, res2, restaurants) {
-    	//console.log(restaurants);
     	if (req.query.latitude && req.query.longitude) {
-    		// Merkurstrasse 43: 47.3673455,8.5543996
+    		// order by distance
     		var userCoord = { latitude: req.query.latitude, longitude: req.query.longitude };
     		console.log("query with coordinate: " + userCoord.latitude + "," + userCoord.longitude);
     	
@@ -107,15 +106,22 @@ exports.index = function(req, res) {
     			var c = ch1903_wgs84(r.properties.coordinate_x, r.properties.coordinate_y, 0);
     			//r.properties.distance = twoNormDistance(userCoord, c);
     			r.properties.distance = dist(userCoord.latitude, userCoord.longitude, c.latitude, c.longitude);
-    			//console.log(r.properties.name + ":" + c.latitude + "," + c.longitude + " " + r.properties.distance);
     		});
     		restaurants.sort(function(a,b) {
     			return a.properties.distance - b.properties.distance;
     		});
     	}
     	
-    	// return at most 20 restaurants
-		res.json(restaurants.splice(0,20));
+    	if (req.query.limit) {
+    		if (req.query.limit == -1) {
+    			res.json(restaurants);
+    		} else {
+    			res.json(restaurants.splice(0,req.query.limit));
+    		}
+    	} else {
+    		// return at most 20 restaurants by default
+			res.json(restaurants.splice(0,20));
+    	}
 	}
   );
 };

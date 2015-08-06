@@ -70,11 +70,11 @@
 									<td class="align-left">{{restaurant.properties['name']}}</td>
 									<td>
 									 	<div class="rating">
-										<span ng-click="rate(restaurant,'1',$event)">☆</span>
-										<span ng-click="rate(restaurant,'2',$event)">☆</span>
-										<span ng-click="rate(restaurant,'3',$event)">☆</span>
-										<span ng-click="rate(restaurant,'4',$event)">☆</span>
 										<span ng-click="rate(restaurant,'5',$event)">☆</span>
+										<span ng-click="rate(restaurant,'4',$event)">☆</span>
+										<span ng-click="rate(restaurant,'3',$event)">☆</span>
+										<span ng-click="rate(restaurant,'2',$event)">☆</span>
+										<span ng-click="rate(restaurant,'1',$event)">☆</span>
 										</div>
 									</td>
 									<td ng-hide="true">{{ restaurant.properties['distance'] | number:1 }} km</td>

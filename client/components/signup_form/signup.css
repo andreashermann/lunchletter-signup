@@ -17,7 +17,9 @@
   width: 1.1em;
 }
 .rating > span:hover:before,
-.rating > span:hover ~ span:before {
+.rating > span:hover ~ span:before,
+.rating > span.selected,
+.rating > span.selected ~ span:before {
   content: "\2605";
   position: absolute;
 }

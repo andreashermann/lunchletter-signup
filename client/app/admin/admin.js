@@ -3,8 +3,12 @@
 angular.module('lunchletterSignupApp')
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/admin', {
-      	templateUrl: 'app/admin/admin.html',
-      	controller: 'AdminCtrl'
+      .when('/admin/users', {
+      	templateUrl: 'app/admin/users.html',
+      	controller: 'UserCtrl'
+      })
+      .when('/admin/ratings', {
+      	templateUrl: 'app/admin/ratings.html',
+      	controller: 'RatingCtrl'
       });
   });

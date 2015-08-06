@@ -1,0 +1,58 @@
+<h2>Ratings</h2>
+
+<table>
+	<thead>
+		<tr>
+			<th>Restaurant</th>
+			<th>Rating</th>
+			<th>Date</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="rating in ratings">
+		<td>{{rating.restaurant.name}}, {{rating.restaurant.address1}}
+			({{rating.restaurant.distance | number:0}}m)
+		</td>
+		<td>
+			<div class="rating" ng-show="rating.properties.rating">
+				<span ng-class="{ selected: rating.properties.rating == 5 }">☆</span>
+				<span ng-class="{ selected: rating.properties.rating == 4 }">☆</span>
+				<span ng-class="{ selected: rating.properties.rating == 3 }">☆</span>
+				<span ng-class="{ selected: rating.properties.rating == 2 }">☆</span>
+				<span ng-class="{ selected: rating.properties.rating == 1 }">☆</span>
+				<span ng-class="{ selected: rating.properties.rating == 0 }">☆</span>
+			</div>
+		</td>
+		<td>{{rating.creationTime}}</td>
+		<td><a href="#" ng-click="deleteRating(rating)">Delete</a></td>
+	</tr>
+	</tbody>
+</table>
+
+<h2>Restaurants</h2>
+
+<table>
+	<thead>
+		<tr>
+			<th ng-click="sortByName">Restaurant</th>
+			<th ng-click="sortByDistance">Distance</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="restaurant in restaurants">
+		<td>{{restaurant.properties.name}}, {{restaurant.properties.address1}}, {{restaurant.properties.address2}}</td>
+		<td>{{restaurant.properties.distance | number:2}}m</td>
+		<td>
+			<div class="rating">
+				<span ng-click="rate(restaurant,'5',$event)">☆</span>
+				<span ng-click="rate(restaurant,'4',$event)">☆</span>
+				<span ng-click="rate(restaurant,'3',$event)">☆</span>
+				<span ng-click="rate(restaurant,'2',$event)">☆</span>
+				<span ng-click="rate(restaurant,'1',$event)">☆</span>
+			</div>
+		</td>
+	</tr>
+	</tbody>
+</table>
