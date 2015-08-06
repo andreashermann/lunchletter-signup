@@ -1,0 +1,26 @@
+<h2>LunchLetter – Admin</h2>
+
+<ul class="nav nav-tabs">
+  <li role="presentation"><a href="/admin/users">Users</a></li>
+  <li role="presentation"><a href="/admin/ratings">Ratings</a></li>
+  <li role="presentation" class="active"><a href="/admin/restaurants">Restaurants</a></li>
+</ul>
+
+<div class="viewContainer" style="background-color: white; padding: 10px;">
+<table>
+       <thead>
+               <tr>
+                       <th>Restaurant</th>
+                       <th>Address</th>
+                       <th>Opening Hours</th>
+               </tr>
+       </thead>
+       <tbody>
+       <tr ng-repeat="restaurant in restaurants">
+               <td>{{restaurant.properties.name}}</td>
+               <td>{{restaurant.properties.address1}}, {{restaurant.properties.address2}}</td>
+               <td>{{restaurant.properties.opening_hours}}</td>
+       </tr>
+       </tbody>
+</table>
+</div>

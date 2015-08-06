@@ -125,3 +125,22 @@ exports.index = function(req, res) {
 	}
   );
 };
+
+exports.update = function(req, res) {
+  var accessKey = process.env.ENGINE_ACCESS_KEY;
+  var eventId = req.body.eventId;
+  var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey;
+  
+  var response = request({ url: url, 
+	method: "PUT",
+	json: true,
+	headers: {
+        	"content-type": "application/json",
+	},
+	body: req.body
+  }, function(err, res2, body) {
+  	console.log(err, res2, body);
+		res.json(body);
+	}
+  );
+};

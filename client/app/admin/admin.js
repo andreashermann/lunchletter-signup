@@ -10,5 +10,9 @@ angular.module('lunchletterSignupApp')
       .when('/admin/ratings', {
       	templateUrl: 'app/admin/ratings.html',
       	controller: 'RatingCtrl'
+      })
+      .when('/admin/restaurants', {
+      	templateUrl: 'app/admin/restaurants.html',
+      	controller: 'RestaurantCtrl'
       });
   });
