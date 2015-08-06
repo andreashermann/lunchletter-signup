@@ -1,3 +1,3 @@
 #!/bin/bash
-grunt --force
+set -x
 docker build -t lunchletter/signup .
