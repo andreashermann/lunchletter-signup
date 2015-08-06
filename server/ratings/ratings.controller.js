@@ -14,7 +14,12 @@ var accessKey = process.env.ENGINE_ACCESS_KEY;
 
 // Get list of ratings
 exports.index = function(req, res) {
-  var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey + "&event=rate&limit=1000&entityId=" + req.query.entityId;
+  var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey + "&event=rate&limit=1000";
+  
+  if (req.query.entity) {
+  	url += "&entityId=" + req.query.entityId;
+  }
+  
   var response = request(
   	{ 
   		url: url, 
@@ -33,6 +38,7 @@ exports.index = function(req, res) {
 // delete rating
 exports.destroy = function(req, res) {
   var eventId = req.params.id;
+  console.log("delete rating " + eventId);
   var url = "http://lunchletter.ch:7070/events/"+eventId+".json?accessKey=" + accessKey;
   var response = request({ url: url, 
 	method: "DELETE",
@@ -43,7 +49,7 @@ exports.destroy = function(req, res) {
   }, 
   function(err, res2, body) {
 	if(_.isEmpty(err)){
-		res.status(200);
+		res.status(200).send();
 	} else {
 		res.status(404).send("Not found");
 	}
