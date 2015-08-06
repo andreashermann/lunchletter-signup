@@ -30,7 +30,7 @@
 								<input type="email" style="color:black;" name="email" id="email" placeholder="Email Address" ng-model="user.email"/>
 							</div>
 							<div class="4u 12u(narrower)">
-								<input type="submit" value="Sign Up" class="fit" ng-click="submit()"/>
+								<input type="submit" value="Sign Up" class="fit" ng-click="signup()"/>
 							</div>
 						</div>
 					</form>
@@ -60,15 +60,18 @@
 							<p></p>
 							<br>
 							
-							<table>
+							<table ng-show="restaurants.length != 0">
 								<thead>
 									<th>Name</th>
+									<th>Addresse</th>
 									<th>Rating</th>
+									<th></th>
 								</thead>
 								<tbody>
 								<tr ng-repeat="restaurant in restaurants">
-									<td class="align-left">{{restaurant.properties['name']}}</td>
-									<td>
+									<td class="align-left">{{restaurant.properties.name}}</td>
+									<td class="align-left">{{restaurant.properties.address1}}</td>
+									<td class="align-left">
 									 	<div class="rating">
 										<span ng-click="rate(restaurant,'5',$event)">☆</span>
 										<span ng-click="rate(restaurant,'4',$event)">☆</span>
@@ -77,16 +80,17 @@
 										<span ng-click="rate(restaurant,'1',$event)">☆</span>
 										</div>
 									</td>
+									<td><a class="glyphicon glyphicon-remove" ng-click="remove(restaurant);"></a></td>
 									<td ng-hide="true">{{ restaurant.properties['distance'] | number:1 }} km</td>
 								</tr>
 								</tbody>
 							</table>
 							
+							<button ng-click="more();">
+								<span class="glyphicon glyphicon-refresh"></span> More
+							</button>
 							
 						</header>
-                        <!--
-						<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
-                        -->
 					</section>
 
 				</section>

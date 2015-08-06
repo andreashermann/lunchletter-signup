@@ -7,12 +7,10 @@ angular.module('lunchletterSignupApp')
 	$scope.restaurants = [];
 
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    }
-
-    function showPosition(position) {
-      $scope.user.latitude = position.coords.latitude;
-      $scope.user.longitude = position.coords.longitude;
+      navigator.geolocation.getCurrentPosition(function(position) {
+      	$scope.user.latitude = position.coords.latitude;
+      	$scope.user.longitude = position.coords.longitude;
+      });
     }
 	
 	// http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array-in-javascript
@@ -21,29 +19,37 @@ angular.module('lunchletterSignupApp')
 		return o;
 	}
 	
-	function fetchRestaurants() {
-		var url = '/restaurants?';
-		if ($scope.user.latitude !== undefined) {
-			url += '&latitude=' + $scope.user.latitude;
+	function fetchRestaurants(latitude, longitude) {
+		var url = '/restaurants?limit=1000';
+		if (latitude) {
+			url += '&latitude=' + latitude;
 		}
-		if ($scope.user.longitude !== undefined) {
-			url += '&longitude=' + $scope.user.longitude;
+		if (longitude) {
+			url += '&longitude=' + longitude;
 		}
 		$http.get(url).success(function(restaurants){
+			// TODO: remove already rated restaurants
     		shuffle(restaurants);
 			$scope.restaurants = restaurants.splice(0,20);
 		});
 	}
     
     $scope.rate = function(restaurant,rating,e) {
-    	$scope.restaurants.splice($scope.restaurants.indexOf(restaurant), 1);
+    	$scope.remove(restaurant);
     	var request = $http.get('/feedback?'
     		+ 'userId=' + $scope.user.email
-    		+ '&restaurantId=' + restaurant.eventId
+    		+ '&restaurantId=' + restaurant.entityId
     		+ '&rating=' + rating);
 	};
+	
+	$scope.remove = function(restaurant) {
+    	$scope.restaurants.splice($scope.restaurants.indexOf(restaurant), 1);
+    	if ($scope.restaurants.length == 0) {
+    		fetchRestaurants();
+    	}
+	};
 
-    $scope.submit = function() {
+    $scope.signup = function() {
       var url = '/signup?'+ 'userId=' + $scope.user.email;
       if ($scope.user.latitude !== undefined) {
       	url += '&latitude=' + $scope.user.latitude;
@@ -59,9 +65,14 @@ angular.module('lunchletterSignupApp')
         })
 		.success(function(data, status, headers, config) {
           $scope.requestMessage = "success: " + status.toString() +" "+ data;
-      		fetchRestaurants();
+      		fetchRestaurants($scope.user.latitude, $scope.user.longitude);
         });
 
+    };
+    
+    $scope.more = function() {
+    	$scope.restaurants = [];
+    	fetchRestaurants();
     };
     
   });
