@@ -16,7 +16,7 @@ var request = require('request');
 function ch1903_wgs84(east, north, hgt)
 {
     // Convert origin to "civil" system, where Bern has coordinates 0,0.
-    east -= 600000;                          
+    east -= 600000;
     north -= 200000;
 
 	// Express distances in 1000km units.
@@ -29,7 +29,7 @@ function ch1903_wgs84(east, north, hgt)
     lon += 0.791484 * east * north;
     lon += 0.1306 * east * north * north;
     lon -= 0.0436 * east * east * east;
-	                      
+
     // Calculate latitude in 10000" units.
     var lat = 16.9023892;
     lat += 3.238272 * north;
@@ -37,16 +37,16 @@ function ch1903_wgs84(east, north, hgt)
     lat -= 0.002528 * north * north;
     lat -= 0.0447 * east * east * north;
     lat -= 0.0140 * north * north * north;
-                                      
+
     // Convert height [m].
     hgt += 49.55;
     hgt -= 12.60 * east;
     hgt -= 22.64 * north;
-        
+
     // Convert longitude and latitude back in degrees.
-    lon *= 100 / 36;                                    
+    lon *= 100 / 36;
     lat *= 100 / 36;
-    
+
     return { latitude: lat, longitude: lon, height: hgt};
 }
 
@@ -88,8 +88,8 @@ exports.index = function(req, res) {
   var accessKey = process.env.ENGINE_ACCESS_KEY;
   var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey + "&event=add_restaurant&limit=-1";
   var response = request(
-  	{ 
-  		url: url, 
+  	{
+  		url: url,
 		method: "GET",
 		json: true,
 		headers: {
@@ -101,7 +101,7 @@ exports.index = function(req, res) {
     		// order by distance
     		var userCoord = { latitude: req.query.latitude, longitude: req.query.longitude };
     		console.log("query with coordinate: " + userCoord.latitude + "," + userCoord.longitude);
-    	
+
     		restaurants.forEach(function(r) {
     			var c = ch1903_wgs84(r.properties.coordinate_x, r.properties.coordinate_y, 0);
     			//r.properties.distance = twoNormDistance(userCoord, c);
@@ -111,7 +111,7 @@ exports.index = function(req, res) {
     			return a.properties.distance - b.properties.distance;
     		});
     	}
-    	
+
     	if (req.query.limit) {
     		if (req.query.limit == -1) {
     			res.json(restaurants);
@@ -120,7 +120,7 @@ exports.index = function(req, res) {
     		}
     	} else {
     		// return at most 20 restaurants by default
-			res.json(restaurants.splice(0,20));
+			  res.json(restaurants.splice(0,20));
     	}
 	}
   );
@@ -129,18 +129,55 @@ exports.index = function(req, res) {
 exports.update = function(req, res) {
   var accessKey = process.env.ENGINE_ACCESS_KEY;
   var eventId = req.body.eventId;
-  var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey;
-  
-  var response = request({ url: url, 
-	method: "PUT",
-	json: true,
-	headers: {
-        	"content-type": "application/json",
-	},
-	body: req.body
+
+  var response = request({ url: "http://lunchletter.ch:7070/events/"+eventId+".json?accessKey=" + accessKey,
+      method: "DELETE",
+      json: true,
+      headers: {
+              "content-type": "application/json",
+      }
+  });
+
+  var response = request({ url: "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey,
+    method: "POST",
+    json: true,
+    headers: {
+            "content-type": "application/json",
+    },
+    body: req.body
   }, function(err, res2, body) {
-  	console.log(err, res2, body);
-		res.json(body);
+  	  console.log(body);
+    if(_.isEmpty(err)){
+      console.log("restaurant updated", req.body)
+      //res.status(200).send();
+		  res.json(body);
+    } else {
+  	  console.log(err);
+      res.status(500).send("Error");
+    }
 	}
   );
 };
+
+exports.destroy = function(req, res) {
+  var accessKey = process.env.ENGINE_ACCESS_KEY;
+  var eventId = req.params.id;
+  var url = "http://lunchletter.ch:7070/events/" + eventId + ".json?accessKey=" + accessKey;
+  console.log("event server request: " + url)
+
+  var response = request({ url: url,
+    method: "DELETE",
+    json: true,
+    headers: {
+            "content-type": "application/json",
+    }
+  }, function(err, res2, body) {
+    if(_.isEmpty(err)){
+      res.status(200).send();
+    } else {
+      res.status(500).send("Error");
+    }
+	}
+  );
+};
+

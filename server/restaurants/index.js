@@ -6,6 +6,7 @@ var controller = require('./restaurants.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
-router.put('/', controller.update);
+router.post('/', controller.update);
+router.delete('/:id', controller.destroy);
 
 module.exports = router;
