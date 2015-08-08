@@ -10,16 +10,23 @@
 <table>
        <thead>
                <tr>
+                       <th>ID</th>
                        <th>Restaurant</th>
                        <th>Address</th>
-                       <th>Opening Hours</th>
+                       <th>URL</th>
+                       <th></th>
+                       <!--<th>Opening Hours</th>-->
                </tr>
        </thead>
        <tbody>
        <tr ng-repeat="restaurant in restaurants">
+               <td>{{restaurant.entityId}}</td>
                <td>{{restaurant.properties.name}}</td>
                <td>{{restaurant.properties.address1}}, {{restaurant.properties.address2}}</td>
-               <td>{{restaurant.properties.opening_hours}}</td>
+               <td><input type="text" ng-model="restaurant.properties.url"></td>
+               <td><input type="submit" class="btn btn-success btn-sm" value="Save" ng-click="saveRestaurant(restaurant);"></td>
+               <td><input type="submit" class="btn btn-success btn-sm" value="Delete" ng-click="deleteRestaurant(restaurant);"></td>
+               <!--<td>{{restaurant.properties.opening_hours}}</td>-->
        </tr>
        </tbody>
 </table>

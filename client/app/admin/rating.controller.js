@@ -27,6 +27,9 @@ angular.module('lunchletterSignupApp')
 		.success(function(ratings){
 			$scope.ratings = ratings;
     		joinRestaurants(ratings);
+		})
+		.error(function(e) {
+			console.log(e);
 		});
 	}
     
