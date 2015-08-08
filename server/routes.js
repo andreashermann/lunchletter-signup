@@ -14,11 +14,12 @@ module.exports = function(app) {
   app.use('/feedback', require('./feedback'));
   app.use('/unsubscribe', require('./unsubscribe'));
   app.use('/email', require('./email'));
-  
+
   app.use('/restaurants', require('./restaurants'));
   app.use('/users', require('./users'));
   app.use('/ratings', require('./ratings'));
-  
+  app.use('/recommendations', require('./recommendations'));
+
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);
