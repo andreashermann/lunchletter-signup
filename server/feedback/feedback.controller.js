@@ -28,7 +28,7 @@ exports.index = function(req, res) {
     targetEntityType: "restaurant",
     targetEntityId : req.query.restaurantId,
     properties : {
-      rating: req.query.rating
+      rating: parseInt(req.query.rating)
     }
   };
   var response = request({ url: url, 
