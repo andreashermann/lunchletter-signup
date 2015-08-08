@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<div id="page-wrapper" ng-controller="SignupCtrl" ng-init="user={email:''}">
+<div id="page-wrapper" ng-controller="SignupCtrl">
 
 			<!-- Header -->
 				<header id="header" class="alt">
@@ -51,13 +51,13 @@
 						<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
                         -->
 					</section>
-					
+
 					<section class="box special" ng-show="signedUp">
 						<header class="major">
 							<h2>Thank you for signing up!</h2>
-							<p></p>
-							<h2>Please help us improve your personal recommendations<br> by rating these restaurants</h2>
-							<p></p>
+							<p>
+							Please help us improve your personal recommendations.<br>
+              Here are some restaurants nearby which you can rate.<br>
 							<br>
 							
 							<table ng-show="restaurants.length != 0">
@@ -71,6 +71,11 @@
 								<tr ng-repeat="restaurant in restaurants">
 									<td class="align-left">{{restaurant.properties.name}}</td>
 									<td class="align-left">{{restaurant.properties.address1}}</td>
+									<td class="align-left">
+                    <a href="{{restaurant.properties.url}}" target="_blank" ng-show="restaurant.properties.url">{{restaurant.properties.name}}</a>
+                    <span ng-show="!restaurant.properties.url">{{restaurant.properties.name}}</span>
+                  </td>
+									<td class="align-left"><a href="http://www.google.ch/maps/place/{{restaurant.properties.address1 | urlEncode}},{{restaurant.properties.address2 | urlEncode}}" target="_blank">{{restaurant.properties.address1}}</a></td>
 									<td class="align-left">
 									 	<div class="rating">
 										<span ng-click="rate(restaurant,'5',$event)">☆</span>

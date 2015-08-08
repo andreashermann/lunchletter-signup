@@ -14,4 +14,7 @@ angular.module('lunchletterSignupApp', [
       });
 
     $locationProvider.html5Mode(true);
-  });
+  })
+  .filter('urlEncode', [function() {
+    return window.encodeURIComponent;
+  }]);
