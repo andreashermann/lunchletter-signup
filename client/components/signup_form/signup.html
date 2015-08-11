@@ -59,8 +59,9 @@
 							Please help us improve your personal recommendations.<br>
               Here are some restaurants nearby which you can rate.<br>
 							<br>
-							
-							<table ng-show="restaurants.length != 0">
+              </p>
+
+							<table ng-show="restaurants.length != 0 && !recommendations">
 								<thead>
 									<th>Name</th>
 									<th>Addresse</th>
@@ -69,8 +70,6 @@
 								</thead>
 								<tbody>
 								<tr ng-repeat="restaurant in restaurants">
-									<td class="align-left">{{restaurant.properties.name}}</td>
-									<td class="align-left">{{restaurant.properties.address1}}</td>
 									<td class="align-left">
                     <a href="{{restaurant.properties.url}}" target="_blank" ng-show="restaurant.properties.url">{{restaurant.properties.name}}</a>
                     <span ng-show="!restaurant.properties.url">{{restaurant.properties.name}}</span>
@@ -78,23 +77,21 @@
 									<td class="align-left"><a href="http://www.google.ch/maps/place/{{restaurant.properties.address1 | urlEncode}},{{restaurant.properties.address2 | urlEncode}}" target="_blank">{{restaurant.properties.address1}}</a></td>
 									<td class="align-left">
 									 	<div class="rating">
-										<span ng-click="rate(restaurant,'5',$event)">☆</span>
-										<span ng-click="rate(restaurant,'4',$event)">☆</span>
-										<span ng-click="rate(restaurant,'3',$event)">☆</span>
-										<span ng-click="rate(restaurant,'2',$event)">☆</span>
-										<span ng-click="rate(restaurant,'1',$event)">☆</span>
+										<span ng-click="rate(restaurant,5,$event)">☆</span>
+										<span ng-click="rate(restaurant,4,$event)">☆</span>
+										<span ng-click="rate(restaurant,3,$event)">☆</span>
+										<span ng-click="rate(restaurant,2,$event)">☆</span>
+										<span ng-click="rate(restaurant,1,$event)">☆</span>
 										</div>
 									</td>
 									<td><a class="glyphicon glyphicon-remove" ng-click="remove(restaurant);"></a></td>
-									<td ng-hide="true">{{ restaurant.properties['distance'] | number:1 }} km</td>
+									<!--<td>{{ restaurant.properties['distance'] | number:1 }}m</td>-->
 								</tr>
 								</tbody>
 							</table>
-							
-							<button ng-click="more();">
-								<span class="glyphicon glyphicon-refresh"></span> More
-							</button>
-							
+
+              <button class="btn btn-lg" type="submit" ng-click="more();" >More...</button>
+
 						</header>
 					</section>
 
