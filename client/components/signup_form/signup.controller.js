@@ -5,8 +5,8 @@ angular.module('lunchletterSignupApp')
 
   	$scope.user = {};
   	$scope.signedUp = false;
-	$scope.restaurants = [];
-	$scope.ratings = [];
+	  $scope.restaurants = [];
+	  $scope.ratings = [];
 
 	  function init() {
 	    setBackground();
@@ -82,7 +82,7 @@ angular.module('lunchletterSignupApp')
       var url = '/ratings?limit=1000&entityId=' + $scope.user.email;
       $http.get(url).success(function(ratings) {
         var ratingsById = {};
-        if (typeof ratings === 'Array') {
+        if (typeof ratings === 'object') {
        	 ratings.forEach(function(e) {
         	  ratingsById[e.targetEntityId] = e.properties.rating;
          });

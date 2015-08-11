@@ -85,7 +85,6 @@ function dist(lat1,lon1,lat2,lon2) {
 
 // Get list of things
 exports.index = function(req, res) {
-  console.log("GET /restaurants")
   var accessKey = process.env.ENGINE_ACCESS_KEY;
   var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey + "&event=add_restaurant&limit=-1";
   var response = request(
@@ -114,7 +113,7 @@ exports.index = function(req, res) {
     	}
 
     	if (req.query.limit) {
-    		if (req.query.limit == -1) {
+    		if (req.query.limit === -1) {
     			res.json(restaurants);
     		} else {
     			res.json(restaurants.splice(0,req.query.limit));
@@ -139,7 +138,7 @@ exports.update = function(req, res) {
       }
   });
 
-  var response = request({ url: "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey,
+  response = request({ url: "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey,
     method: "POST",
     json: true,
     headers: {
