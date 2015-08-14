@@ -113,7 +113,7 @@ exports.index = function(req, res) {
     	}
 
     	if (req.query.limit) {
-    		if (req.query.limit === -1) {
+    		if (req.query.limit == -1) {
     			res.json(restaurants);
     		} else {
     			res.json(restaurants.splice(0,req.query.limit));
