@@ -13,6 +13,8 @@
                        <th>ID</th>
                        <th>Restaurant</th>
                        <th>Address</th>
+                       <th>EW</th>
+                       <th>NS</th>
                        <th>URL</th>
                        <th></th>
                        <!--<th>Opening Hours</th>-->
@@ -23,6 +25,8 @@
                <td>{{restaurant.entityId}}</td>
                <td>{{restaurant.properties.name}}</td>
                <td>{{restaurant.properties.address1}}, {{restaurant.properties.address2}}</td>
+               <td><input type="text" ng-model="restaurant.properties.coordinate_x"></td>
+               <td><input type="text" ng-model="restaurant.properties.coordinate_y"></td>
                <td><input type="text" ng-model="restaurant.properties.url"></td>
                <td><input type="submit" class="btn btn-success btn-sm" value="Save" ng-click="saveRestaurant(restaurant);"></td>
                <td><input type="submit" class="btn btn-success btn-sm" value="Delete" ng-click="deleteRestaurant(restaurant);"></td>
