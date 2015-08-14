@@ -14,7 +14,7 @@ var accessKey = process.env.ENGINE_ACCESS_KEY;
 
 // Get list of ratings
 exports.index = function(req, res) {
-  var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey + "&event=rate&limit=1000";
+  var url = "http://lunchletter.ch:7070/events.json?accessKey=" + accessKey + "&event=rate&limit=-1";
 
   if (req.query.entityId) {
   	url += "&entityId=" + req.query.entityId;
